@@ -4,7 +4,7 @@ const initialState={
     loading:false,
     message:null,
     error:null,
-    users:[],
+    users:null,
     role:"",
     stats:[],
     usercnt:0,
@@ -78,6 +78,10 @@ const adminReducer=createSlice({
         state.loading=false;
         state.error=action.payload;
     },
+    setUsers:(state,action)=>{
+        
+        state.users=action.payload.users
+    },
     
     clearError:(state)=>{
         state.error=null
@@ -88,5 +92,5 @@ const adminReducer=createSlice({
 }})
 export const {clearError,clearMessage,deleteLectureFail,deleteLectureRequest,deleteLectureSuccess,changeRoleFail,
     changeRoleRequest,changeRolesuccess,deleteUserFail,deleteUserRequest,deleteUserSuccess,getDashboardStatsFail
-    ,getDashboardStatsRequest,getDashboardStatsSuccess}=adminReducer.actions;
+    ,getDashboardStatsRequest,getDashboardStatsSuccess,setUsers}=adminReducer.actions;
 export default adminReducer.reducer;

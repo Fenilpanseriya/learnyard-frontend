@@ -24,14 +24,14 @@ const Cources = () => {
         
       };
     useEffect(()=>{
-            
+        dispatch(getAllCourses(category,course))
         
         if(error){
             toast.error(error);
             dispatch(clearError())
         }
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
+        // window.addEventListener('scroll', handleScroll);
+        // return () => window.removeEventListener('scroll', handleScroll);
         
 
     },[course,category])
@@ -58,8 +58,8 @@ const Cources = () => {
              <Stack  m={"8"} minW={"60%"} direction={["column","row"]} flexWrap={"wrap"}  justifyContent={"space-evenly"}  objectFit={"contain"} spacing={"8"}>
 
         {
-            courses.length>0?courses.map((item)=>(
-                <Course index={item._id} image={item.poster.url} title={item.title} creator={item.createdBy} lectures={item.numOfVideos} views={item.views} description={item.description}/>
+            courses.length>0?courses?.map((item)=>(
+                <Course index={item?._id} image={item?.poster?.url} title={item?.title} creator={item?.createdBy} lectures={item?.numOfVideos} views={item?.views} description={item?.description}/>
             )):<Heading children=' Oops! Courses Not Found'opacity={"0.5"} mt={"5"}/>
         }
         

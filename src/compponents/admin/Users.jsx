@@ -3,7 +3,7 @@ import Sidebar from './Sidebar'
 import { Text,Grid,Th, Tr, Td,Thead,Box,Heading, TableContainer, Table, TableCaption, Tbody, HStack, Button, Container } from '@chakra-ui/react'
 import { getAllUsers, roleUpdate, userDelete } from '../../redux/actions/admin';
 import { useDispatch } from 'react-redux';
-
+import {setUsers as setUser} from "../../redux/reducers/adminReducer"
 
 const Users = () => {
   const [page,setPage]=useState(0);
@@ -29,6 +29,7 @@ const Users = () => {
   const getAllUser=async()=>{
       users1=await dispatch(getAllUsers());
       setUsers(users1);
+      dispatch(setUser(users1))
   }
   
   const len=users?.length;
@@ -36,7 +37,7 @@ const Users = () => {
   const handleChange=(pagenum)=>{
     setPage(pagenum<=0?part:(pagenum===part+1)?1:pagenum);
   }
-   console.log("data "+users);
+   console.log("data "+JSON.stringify(users));
   let userData=users?.slice((page-1)*3,page*3)
   
   console.log("len is "+userData);

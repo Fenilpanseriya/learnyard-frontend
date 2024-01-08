@@ -10,7 +10,7 @@ export const getAllCourses=(category,keyword)=>async(dispatch)=>{
             },
             withCredentials:true,
         })
-        //console.log(data);
+        console.log(data?.courses);
         dispatch(getAllCoursesSuccess(data))
     }
     catch(e){

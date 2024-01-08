@@ -1,5 +1,5 @@
 import { Axios } from "../../Axios";
-import { changeRoleFail, changeRoleRequest, changeRolesuccess, deleteLectureFail, deleteLectureRequest, deleteLectureSuccess, deleteUserRequest, deleteUserSuccess, getDashboardStatsRequest, getDashboardStatsSuccess } from "../reducers/adminReducer";
+import { changeRoleFail, changeRoleRequest, changeRolesuccess, deleteLectureFail, deleteLectureRequest, deleteLectureSuccess, deleteUserRequest, deleteUserSuccess, getDashboardStatsRequest, getDashboardStatsSuccess, setUsers } from "../reducers/adminReducer";
 import { createCourseFail, createCourseRequest, createCourseSuccess, getCoursesSuccess } from "../reducers/courseReducer";
 
 export const lectureDelete=(lactureId,courseId)=>async(dispatch)=>{
@@ -85,6 +85,7 @@ export const getAllUsers=(token)=>async(dispatch)=>{
             withCredentials:true
         })
         if(response.data.success){
+            dispatch(setUsers(response.data?.users))
             return response.data.users;
             
         }
