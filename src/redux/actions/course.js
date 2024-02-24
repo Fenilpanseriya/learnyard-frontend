@@ -59,7 +59,26 @@ export const addLecture=(id,public_id,secure_url,text,title)=>async(dispatch)=>{
     }
 
 }
+export const addAssignment=(public_id,secure_url,courseId,lectureId)=>async(dispatch)=>{
+    try{
+        dispatch(addLectureRequest());
+        const response=await Axios.post("/addAssignment",{public_id,secure_url,courseId,lectureId},{
+            headers:{
+                "Content-Type":"application/json",
+                "token":localStorage.getItem("token"),
+            },
+            withCredentials:true,
+        })
+        //console.log(data);
+        dispatch(addLectureSuccess(response.data))
+    }
+    catch(e){
+        dispatch(addLectureFail("something went wrong"))
+        
 
+    }
+
+}
 export const courseRequest=(email,name,course)=>async(dispatch)=>{
     try{
         dispatch(CourseRequest())

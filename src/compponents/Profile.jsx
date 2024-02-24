@@ -14,7 +14,7 @@ import { cancleSubscription, getMyProfile } from '../redux/actions/user'
 
 const Profile = ({user}) => {
     const title=useSelector(state=>state.users.title)
-    console.log("user in profile "+user.avatar)
+    console.log("user in profile "+user?.avatar)
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [prev,setPrev]=useState("");
     const changeHandle=(e)=>{
@@ -48,7 +48,7 @@ const Profile = ({user}) => {
         <Heading children="Profile"/>
         <HStack direction={["center","flex-start"]} py={"4"}>
         <VStack spacing={"3"} direction={["center","flex-start"]}>
-            <Avatar src={user.avatar.url} boxSize={"48"}/>
+            <Avatar src={user?.avatar?.url} boxSize={"48"}/>
             <Button onClick={changeHandle}color="yellow.400" variant={"ghost"}>
                 Change Photo
             </Button>

@@ -1,6 +1,6 @@
 import { VStack,Image,Text, HStack, Button,Box, color, Spinner } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import "../Home/home.css"
 import { useDispatch } from 'react-redux'
 import { addToPlaylist } from '../../redux/actions/profile'
@@ -12,13 +12,15 @@ import { getCourses } from '../../redux/actions/course'
 const Course = ({index,image,title,creator,lectures,views,noOfLines=2,description,course}) => {
     const {loading,error,message}=useSelector(state=>state.users);
     const dispatch=useDispatch();
+    const navigate=useNavigate();
     const handleSubmit=async(e)=>{
         e.preventDefault()
         await dispatch(addToPlaylist(index));
         dispatch(getMyProfile());
     }
     const handleClick=async()=>{
-        await dispatch(getCourses(index));
+         await dispatch(getCourses(index));
+        //navigate("/profile")
     }
     useEffect(()=>{
         if(error){
@@ -72,6 +74,7 @@ const Course = ({index,image,title,creator,lectures,views,noOfLines=2,descriptio
         }
        
     </VStack>
+   
    
   )
 }

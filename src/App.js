@@ -58,12 +58,17 @@ function App() {
     }
   }, [dispatch, error, message]);
   useEffect(() => {
-    dispatch(getMyProfile());
+    if(localStorage.getItem("token")){
+      dispatch(getMyProfile());
+    }
+    
   }, [dispatch,isAuthenticated]);
   return (
     <Router>
       {loading ? (
         <Loader />
+        
+        
       ) : (
         <>
         <VStack w={"full"} css={{

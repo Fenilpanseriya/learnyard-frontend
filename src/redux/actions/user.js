@@ -4,6 +4,8 @@ import { server } from "../store";
 import axios from "axios"
 
 import { Axios } from "../../Axios";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export const login=(email,password)=>async(dispatch)=>{
     
@@ -27,6 +29,7 @@ export const login=(email,password)=>async(dispatch)=>{
     }
 
     catch(e){
+
         dispatch(loginFail(e.response.data.message))
         
 
@@ -34,6 +37,7 @@ export const login=(email,password)=>async(dispatch)=>{
 
 }
 export const getMyProfile=()=>async(dispatch)=>{
+    
     try{
         dispatch(loadUserRequest());
         console.log("token "+localStorage.getItem("token"))
@@ -54,6 +58,7 @@ export const getMyProfile=()=>async(dispatch)=>{
     }
 
     catch(e){
+        
         dispatch(loadUserFail(e.response.data.message))
         
 

@@ -40,9 +40,9 @@ const About = () => {
           >
             <Heading children="The LearnYard" />
           </HStack>
-          <VStack textColor={'black'} fontWeight={'bold'} m={'0'} ml={12}>
-            <Heading marginLeft={'-5'} children="Online Course Platform." />
-          </VStack>
+          <HStack textColor={'black'} fontWeight={'bold'} m="0" ml="8">
+            <Heading children="Online Course Platform." />
+          </HStack>
 
           <HStack>
             <Heading fontSize="20" textColor="purple.600" ml="8">
@@ -56,10 +56,10 @@ const About = () => {
       <Box>
 
      
-      <HStack m={"5"} overflowY={"scroll"} py="5" height={"35vh"} justifyContent={"space-evenly"} w={"full"} spacing={"8"} direction={["center","flex-start"]} css={{
+      <HStack  overflowY={"scroll"} py="5" height={"35vh"} justifyContent={"space-evenly"} w={"full"} spacing={"8"} direction={["center","flex-start"]} css={{
                 '&::-webkit-scrollbar':{display:"none"}
            }}>
-        <VStack w={"30%"}  m="8" bgColor={"whitesmoke"} h={"full"} >
+        <VStack w={"30%"}   bgColor={"whitesmoke"} h={"full"} >
 
            <Image src={views} pt={"3"} height={"13vh"}/>
            <VStack overflowY={"scroll"} m={"4"} css={{

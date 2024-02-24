@@ -9,10 +9,12 @@ import toast from 'react-hot-toast';
 import { clearError } from '../../redux/reducers/courseReducer';
 import { useDispatch } from 'react-redux';
 import { clearMessage } from '../../redux/reducers/courseReducer';
-import { getAllCourses, getCourses } from '../../redux/actions/course';
+
+import AddAssignment from './AddAssignment';
 const WatchCourse = () => {
     const {index}=useParams();
     const [lectureNo,setlectureNo]=useState(0); 
+    const [isLecture,setIsLecture]=useState("");
     const {user}=useSelector(state=>state.users)
     const {message,error,lectures,loading}=useSelector(state=>state.courses)
     const { isOpen, onOpen, onClose }=useDisclosure();
@@ -44,15 +46,19 @@ const WatchCourse = () => {
     
     const handleClick=(e)=>{
         e.preventDefault();
+        if(e.target.id==="addlecture"){
+            setIsLecture("addlecture")
+        }
+        else{
+            setIsLecture("addassignment");
+        }
         onOpen();
     }
     useEffect(()=>{
         //dispatch(getCourses(index))
-        if(error){
-            toast.error(error);
-            dispatch(clearError());
-        }
-        else if(message){
+        dispatch(clearError());
+        
+        if(message){
             toast.success(message);
             dispatch(clearMessage())
         }
@@ -61,12 +67,17 @@ const WatchCourse = () => {
   return (<Grid minH={'90vh'} templateColumns={['1fr','3fr 1fr']} pt={"12"} ml={"6"}>
             <Box>
             
-                <video width={"100%"} controls   controlsList=' autoPlay muted  noremoteplayback' disableRemotePlayback src={lectures && lectures[lectureNo].video.url}>
+                <video width={"100%"} controls   controlsList=' autoPlay muted  noremoteplayback' disableRemotePlayback src={lectures && lectures[lectureNo]?.video.url}>
                 </video>
-                <Heading children={lectures.length>0 && `#${lectureNo+1} ${lectures[lectureNo].title}`} m="4"/>
+                <Heading children={lectures.length>0 && `#${lectureNo+1} ${lectures[lectureNo]?.title}`} m="4"/>
                 <Heading m="4" children="Description"/>
-                <Text  m="4" children={ lectures.length>0 && lectures[lectureNo].description} fontSize={"medium"}>
+                <Text  m="4" children={ lectures.length>0 && lectures[lectureNo]?.description} fontSize={"medium"}>
 
+                </Text>
+                <Text m="4"  fontSize={"medium"} variant={"link"}>
+                    {/* {lectures.length>0 && lectures[lectureNo]?.assignment?.url?"Assignment Link":null} */}
+                     {/* <a href={lectures.length>0 && lectures[lectureNo]?.assignment?.url} target='_blank'>Assignment Link</a> */}
+                     <a href="https://forms.gle/7hki6Wh3CAPvwWnR9" target='_blank'>Assignment Link</a>
                 </Text>
             
             </Box>
@@ -84,14 +95,25 @@ const WatchCourse = () => {
                 { 
                     user.role==="admin" && 
 
-                            <Button variant={"ghost"} textColor={"purple.500"} w={"full"} onClick={handleClick}>
+                            <Button id="addLecture" variant={"ghost"} textColor={"purple.500"} w={"full"} onClick={handleClick}>
                                 <Text>
                                     Add Lecture
                                 </Text>
                             </Button>
                     
                 }
-                <AddLecture isOpen={isOpen} onClose={onClose} id={index}/>
+                { 
+                    user.role==="admin" && 
+
+                            <Button id="addAssignment" variant={"ghost"} textColor={"purple.500"} w={"full"} onClick={handleClick}>
+                                <Text>
+                                    Add Assignment
+                                </Text>
+                            </Button>
+                    
+                }
+                {isLecture==="addlecture" && <AddLecture isOpen={isOpen} onClose={onClose} id={index}/>}
+                {isLecture==="addassignment" && <AddAssignment isOpen={isOpen} onClose={onClose} id={index} lectureId={lectureNo}/>}
             </VStack>
   </Grid>
   )
